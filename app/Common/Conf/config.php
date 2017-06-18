@@ -26,13 +26,13 @@ return array(
 
 	// 'DB_HOST'   => '172.16.0.8', // 服务器地址db.baidulab.net
 
-	'DB_HOST'   => '103.224.83.152', // 服务器地址
+	'DB_HOST'   => 'localhost', // 服务器地址
 
 	'DB_NAME'   => 'wanzhuan',// 数据库名
 
-	'DB_USER'   => 'wanzhuan',		// 用户名
+	'DB_USER'   => 'root',		// 用户名
 
-	'DB_PWD'    => 'wanzhuan', 			// 密码
+	'DB_PWD'    => 'root', 			// 密码
 
 	'DB_PORT'   => '3306', 		// 端口
 
