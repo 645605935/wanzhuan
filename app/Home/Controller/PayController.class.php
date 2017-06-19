@@ -5,10 +5,7 @@ use Think\CommonController;
 class PayController extends CommonController{
     public function _initialize(){
         parent::_initialize();
-        
     }
-
-
 
     public function payment() {
         Vendor( 'pingpp.init');
@@ -22,16 +19,19 @@ class PayController extends CommonController{
         $amount = 1;
         $number_info = $_GET['number_info'];
         $type = $_GET['type'];
+        $uid = $_GET['uid'];
 
         $order_no = substr(md5(time()), 0, 12);
 
         //此处生成订单
         $data=array();
+        $data['order_no']=$order_no;
         $data['channel']=$channel;
         $data['amount']=$amount;
         $data['number_info']=$number_info;
+        
         $data['type']=$type;
-        $data['order_no']=$order_no;
+        $data['uid']=$uid;
         $data['time']=time();
 
         $id=M('order_fotbal')->add($data);
@@ -90,15 +90,13 @@ class PayController extends CommonController{
             case "charge.succeeded":
                 // 开发者在此处加入对支付异步通知的处理代码
                 $order_no=$event->data->object->order_no;
-                $channel=$event->data->object->channel;
                 $time_paid=$event->data->object->time_paid;
                 
                 $data=array();
                 $data['status']=1;
-                $data['channel']=$channel;
                 $data['time_paid']=$time_paid;
                 
-                M('jingcaizuqiu_order')->where(array('order_no'=>$order_no))->save($data);
+                M('order_fotbal')->where(array('order_no'=>$order_no))->save($data);
 
                 header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
                 break;
